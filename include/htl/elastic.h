@@ -15,7 +15,7 @@ class ch_elastic
 private:
   class __system_io__;
   class __system_flip_io__;
-  lass __logic_struct__;
+  class __logic_struct__;
   class __system_struct__;
 
   class __logic_flip_io__
