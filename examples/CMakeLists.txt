@@ -11,7 +11,8 @@ set(EXAMPLES
     aes    
     fft
     sobel
-	vectoradd
+    vectoradd
+    #    elastic_adder
 )
 
 # copy resource directory

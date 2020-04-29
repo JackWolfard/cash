@@ -80,6 +80,25 @@ private:
       this->ready(__other.ready);
     }
 
+    template <typename A, typename B>
+    void join(typename ch_elastic<A>::__logic_flip_io__ &a,
+              typename ch_elastic<B>::__logic_flip_io__ &b)
+    {
+      this->valid(a.valid && b.valid);
+      a.ready(!a.valid || (this->valid && this->ready));
+      b.ready(!b.valid || (this->valid && this->ready));
+    }
+
+    template <typename A, typename B>
+    void fork(typename ch_elastic<A>::__logic_flip_io__ &a,
+              typename ch_elastic<B>::__logic_flip_io__ &b)
+    {
+      // lazy fork implementation
+      this->ready(a.ready || b.ready);
+      a.valid(this->valid && this->ready);
+      b.valid(this->valid && this->ready);
+    }
+
   protected:
     __logic_flip_io__ &operator=(const __logic_flip_io__ &) = delete;
     __logic_flip_io__ &operator=(__logic_flip_io__ &&) = delete;
@@ -156,6 +175,25 @@ private:
       this->ready(__other.ready);
     }
 
+    template <typename A, typename B>
+    void join(typename ch_elastic<A>::__system_io__ &a,
+              typename ch_elastic<B>::__system_io__ &b)
+    {
+      this->valid(a.valid && b.valid);
+      a.ready(!a.valid || (this->valid && this->ready));
+      b.ready(!b.valid || (this->valid && this->ready));
+    }
+
+    template <typename A, typename B>
+    void fork(typename ch_elastic<A>::__system_io__ &a,
+              typename ch_elastic<B>::__system_io__ &b)
+    {
+      // lazy fork implementation
+      this->ready(a.ready || b.ready);
+      a.valid(this->valid && this->ready);
+      b.valid(this->valid && this->ready);
+    }
+
   protected:
     __system_io__ &operator=(const __system_io__ &) = delete;
     __system_io__ &operator=(__system_io__ &&) = delete;
@@ -230,6 +268,25 @@ private:
       this->data(__other.data);
       this->valid(__other.valid);
       this->ready(__other.ready);
+    }
+
+    template <typename A, typename B>
+    void join(typename ch_elastic<A>::__system_flip_io__ &a,
+              typename ch_elastic<B>::__system_flip_io__ &b)
+    {
+      this->valid(a.valid && b.valid);
+      a.ready(!a.valid || (this->valid && this->ready));
+      b.ready(!b.valid || (this->valid && this->ready));
+    }
+
+    template <typename A, typename B>
+    void fork(typename ch_elastic<A>::__system_flip_io__ &a,
+              typename ch_elastic<B>::__system_flip_io__ &b)
+    {
+      // lazy fork implementation
+      this->ready(a.ready || b.ready);
+      a.valid(this->valid && this->ready);
+      b.valid(this->valid && this->ready);
     }
 
   protected:
@@ -653,6 +710,23 @@ public:
     this->data(__other.data);
     this->valid(__other.valid);
     this->ready(__other.ready);
+  }
+
+  template <typename A, typename B>
+  void join(ch_elastic<A> &a, ch_elastic<B> &b)
+  {
+    this->valid(a.valid && b.valid);
+    a.ready(!a.valid || (this->valid && this->ready));
+    b.ready(!b.valid || (this->valid && this->ready));
+  }
+
+  template <typename A, typename B>
+  void fork(ch_elastic<A> &a, ch_elastic<B> &b)
+  {
+    // lazy fork implementation
+    this->ready(a.ready || b.ready);
+    a.valid(this->valid && this->ready);
+    b.valid(this->valid && this->ready);
   }
 
 protected:
