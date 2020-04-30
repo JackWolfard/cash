@@ -12,7 +12,7 @@ set(EXAMPLES
     fft
     sobel
     vectoradd
-    #    elastic_adder
+    elastic_adder
 )
 
 # copy resource directory

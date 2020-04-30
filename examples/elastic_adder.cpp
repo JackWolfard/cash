@@ -1,5 +1,5 @@
-#include <cash/core.h>
-#include <cash/htl/elastic.h>
+#include <core.h>
+#include <htl/elastic.h>
 
 #include "common.h"
 
